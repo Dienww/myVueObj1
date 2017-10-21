@@ -19,11 +19,12 @@
             <div class="box_top">
                 <a class="active" href="login.html">登录</a>
                 <span class="dian">·</span>
-                <a class="other" href="regist.html">注册</a>
+                <a class="other" v-bind:class="{activee:isActivee}" href="regist.html" v-on:mouseenter="borderShow()"
+                v-on:mouseleave="borderHide()">注册</a>
             </div>
             <div class="box_content">
                 <div class="c1">
-                    <input type="text" placeholder="手机号或邮箱">
+                    <input type="text" placeholder="手机号或邮箱" v-model="username">
                     <img id="user" src="img/user.png" alt="">
                 </div>
                 <div class="c2">
@@ -35,23 +36,23 @@
                     <span>点击按钮进行验证</span>
                     <img class="xiaold" src="img/xiaold.png" alt="">
                 </div>
-                <div class="c4">
+                <div id ="c4">
                     <div class="c4_left">
                        <input type="checkbox" checked="checked">
                        <span>记住我</span>
                     </div>
                     <div class="c4_right">
-                        <span>登录遇到问题？</span>
-                        <ul class="program">
-                            <li>用手机号重置密码</li>
-                            <li>用邮箱重置密码</li>
-                            <li>无法用海外手机号登陆</li>
-                            <li>无法用Google账号登录</li>
+                        <span id="cli" v-bind:style="myColor" v-on:mouseenter="myEnter()" v-on:mouseleave="myLeave()" v-on:click="show()">登录遇到问题？</span>
+                        <ul class="program" v-show="isShow">
+                            <li v-bind:style="myColor" v-on:mouseenter="myliEnter()" v-on:mouseleave="myliLeave()"><a href="reset">用手机号重置密码</a></li>
+                            <li v-bind:style="myColor" v-on:mouseenter="myliEnter()" v-on:mouseleave="myliLeave()">用邮箱重置密码</li>
+                            <li v-bind:style="myColor" v-on:mouseenter="myliEnter()" v-on:mouseleave="myliLeave()">无法用海外手机号登陆</li>
+                            <li v-bind:style="myColor" v-on:mouseenter="myliEnter()" v-on:mouseleave="myliLeave()">无法用Google账号登录</li>
                         </ul>
                     </div>
                 </div>
                 <div class="c5">
-                    <button>登录</button>
+                    <button v-on:click="login()">登录</button>
                 </div>
             </div>
             <div class="box_footer">
@@ -69,8 +70,46 @@
             </div>
         </div>
     </div>
-    <script type="application/javascript">
 
+    <script type="application/javascript">
+            var vm = new Vue({
+                el :'#wrap',
+                data:{
+                    username:'',
+                    isShow:false,
+                    isActivee:false,
+                    myColor:{
+                        color:'',
+                        backgroundColor:'',
+                    }
+                },
+                methods:{
+                    login:function () {
+                        alert(this.username+"登录成功");
+                    },
+                    show:function () {
+                        this.isShow = !this.isShow;
+                    },
+                    borderShow:function () {
+                        this.isActivee = true;
+                    },
+                    borderHide:function () {
+                        this.isActivee = false;
+                    },
+                    myEnter:function () {
+                        this.myColor.color = 'black'
+                    },
+                    myLeave:function () {
+                        this.myColor.color ='#969696'
+                    },
+                    myliEnter:function () {
+                        this.myColor.backgroundColor = '#f0f0f0'
+                    },
+                    myliLeave:function () {
+                        this.myColor.backgroundColor =''
+                    }
+                }
+            })
     </script>
 </body>
 </html>
